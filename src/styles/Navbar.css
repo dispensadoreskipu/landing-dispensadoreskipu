@@ -1,0 +1,242 @@
+  /* Base Styles */
+  :root {
+    --primary-blue: #4A90E2; /* Approximate blue from screenshot */
+    --text-dark: #333333;
+    --text-light: #666666;
+    --white: #ffffff;
+    --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  .header {
+    width: 100%;
+    background-color: var(--white);
+    font-family: var(--font-sans);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  .nav-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+  }
+
+  /* Logo Styles */
+  .logo-link {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+  }
+
+  .logo-placeholder {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .logo-img {
+    width: 120px;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+  }
+
+  .brand-name {
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: #2c5282; /* Darker blue for KIPU */
+    letter-spacing: -0.5px;
+  }
+
+  .brand-slogan {
+    font-size: 0.6rem;
+    color: #4299e1; /* Lighter blue for text */
+    text-transform: uppercase;
+  }
+
+  /* Desktop Navigation */
+  .desktop-nav {
+    display: none; /* Hidden by default (mobile) */
+  }
+
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--text-light);
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+  }
+
+  .nav-links a:hover {
+    color: var(--primary-blue);
+  }
+
+  /* Actions Area */
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .btn-contact {
+    background-color: var(--primary-blue);
+    color: var(--white);
+    text-decoration: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 50px; /* Pill shape */
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: background-color 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .btn-contact:hover {
+    background-color: #357abd;
+  }
+
+  .hamburger {
+    display: block; /* Visible on mobile */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    color: var(--text-dark);
+  }
+
+  /* Mobile Menu Overlay */
+  .mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--white);
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  .mobile-menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    color: var(--text-dark);
+  }
+
+  .mobile-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .mobile-link {
+    text-decoration: none;
+    color: var(--text-dark);
+    font-size: 1.5rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .mobile-link:hover {
+    color: var(--primary-blue);
+  }
+
+  /* Responsive Breakpoints */
+  @media (min-width: 768px) {
+    .desktop-nav {
+      display: block;
+      margin-left: auto;
+      margin-right: 2rem;
+    }
+
+    .hamburger {
+      display: none;
+    }
+
+    /* In desktop, the container layout adjusts */
+    .nav-content {
+      justify-content: flex-start; /* Logo left, Nav middle-right, Button right */
+    }
+    
+    .actions {
+      margin-left: 0;
+    }
+  }
+  
+  /* Mobile Adjustments */
+  @media (max-width: 767px) {
+    .nav-content {
+        /* On mobile: Logo - Button - Hamburger */
+        justify-content: space-between;
+    }
+    
+    /* We need the button in the middle on mobile? 
+       The prompt said: "en moviles uno colapsable, donde el unico item del menu no colapsado será el botón 'Contáctanos'"
+       and screenshots show [Logo] [Contact] [Menu].
+       Let's adjust the flex order or margins.
+    */
+    .logo-link {
+        flex: 0 0 auto;
+    }
+
+    .logo-img {
+      width: 90px;
+    }
+    
+    .actions {
+        flex: 1;
+        justify-content: flex-end;
+        gap: 0.5rem;
+    }
+    
+    .btn-contact {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+    }
+  }

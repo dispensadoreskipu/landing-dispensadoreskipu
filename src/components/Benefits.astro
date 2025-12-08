@@ -1,0 +1,72 @@
+---
+import Jug from "../assets/img/jug.webp";
+import { Image } from "astro:assets";
+import "../styles/Benefits.css";
+---
+
+<section class="benefits-section benefits-animate" id="benefits-section">
+  <div class="benefits-container">
+    <div class="benefits-content">
+      <div class="benefits-title-wrapper benefits-title-animate">
+        <h2 class="benefits-title">BENEFICIOS</h2>
+      </div>
+      <div class="benefits-image-wrapper benefits-image-animate">
+        <Image src={Jug} alt="Jarrón de agua KIPU" class="jug-image" />
+      </div>
+      <div class="benefits-list-wrapper benefits-list-animate">
+        <ul class="benefits-list">
+          <li class="benefit-item">
+            <span class="benefit-number">01</span>
+            <div class="benefit-content">
+              <h3 class="benefit-title">Alta rentabilidad</h3>
+              <p class="benefit-description">Recupera tu inversión en tiempo récord.</p>
+            </div>
+          </li>
+          <li class="benefit-item">
+            <span class="benefit-number">02</span>
+            <div class="benefit-content">
+              <h3 class="benefit-title">Fácil instalación</h3>
+              <p class="benefit-description">Diseños pensados para adaptarse a cualquier espacio.</p>
+            </div>
+          </li>
+          <li class="benefit-item">
+            <span class="benefit-number">03</span>
+            <div class="benefit-content">
+              <h3 class="benefit-title">Soporte confiable</h3>
+              <p class="benefit-description">Asesoría para que tu negocio crezca sin contratiempos.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const benefitsSection = document.querySelector('.benefits-animate');
+  
+  if (benefitsSection) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.15) {
+            entry.target.classList.add('visible');
+            const titleEl = entry.target.querySelector('.benefits-title-animate');
+            const imageEl = entry.target.querySelector('.benefits-image-animate');
+            const listEl = entry.target.querySelector('.benefits-list-animate');
+            if (titleEl) titleEl.classList.add('visible');
+            if (imageEl) imageEl.classList.add('visible');
+            if (listEl) listEl.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.15,
+        rootMargin: '0px 0px -50px 0px'
+      }
+    );
+    
+    observer.observe(benefitsSection);
+  }
+</script>

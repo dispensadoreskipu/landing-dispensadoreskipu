@@ -1,0 +1,60 @@
+---
+import { Image } from "astro:assets";
+import Jugs from "../assets/img/jugs.webp";
+import Dispenser1 from "../assets/img/dispenser1.jpeg";
+import Dispenser2 from "../assets/img/dispenser2.jpeg";
+import Building from "../assets/img/building.jpg";
+import CTA from "./CTA.astro";
+import "../styles/Invest.css";
+---
+
+<section class="invest-section invest-animate">
+  <div class="invest-container">
+    <div class="invest-content">
+      <div class="invest-left invest-image-animate">
+        <Image src={Jugs} alt="Jarrones de agua" class="jugs-image" />
+      </div>
+      <div class="invest-right invest-text-animate">
+        <div class="invest-text-content">
+          <h2 class="invest-title">Invierte inteligente</h2>
+          <p class="invest-paragraph">
+            Convierte tu espacio en una fuente de ingresos y lleva limpieza y pureza a cada rincón. ¡Empieza hoy con una solución personalizada para ti!
+          </p>
+          <CTA 
+            text="Contáctanos" 
+            backgroundColor="#5483D1" 
+            textColor="#ffffff" 
+            hoverEffect="lift" 
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const investSection = document.querySelector('.invest-animate');
+  
+  if (investSection) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.15) {
+            entry.target.classList.add('visible');
+            const imageEl = entry.target.querySelector('.invest-image-animate');
+            const textEl = entry.target.querySelector('.invest-text-animate');
+            if (imageEl) imageEl.classList.add('visible');
+            if (textEl) textEl.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.15,
+        rootMargin: '0px 0px -50px 0px'
+      }
+    );
+    
+    observer.observe(investSection);
+  }
+</script>

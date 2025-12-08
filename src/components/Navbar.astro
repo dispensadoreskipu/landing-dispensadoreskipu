@@ -1,0 +1,114 @@
+---
+import { Image } from "astro:assets";
+import KipuLogo from "../assets/img/kipu_logo.png";
+import "../styles/Navbar.css";
+---
+
+<header class="header">
+  <div class="container">
+    <div class="nav-content">
+      <!-- Logo Area -->
+      <a href="/" class="logo-link">
+        <Image src={KipuLogo} alt="KIPU Logo" class="logo-img"/>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="desktop-nav">
+        <ul class="nav-links">
+          <li><a href="#hero-section" class="nav-link">Inicio</a></li>
+          <li><a href="#undertake-section" class="nav-link">Sobre nosotros</a></li>
+          <li><a href="#models-section" class="nav-link">Modelos</a></li>
+          <li><a href="#benefits-section" class="nav-link">Beneficios</a></li>
+        </ul>
+      </nav>
+
+      <!-- Actions (Button + Hamburger) -->
+      <div class="actions">
+        <a href="https://api.whatsapp.com/send/?phone=528717429367&text&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer" class="btn-contact">Contáctanos</a>
+        <button id="menu-toggle" class="hamburger" aria-label="Abrir menú">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Menu Overlay -->
+  <div id="mobile-menu" class="mobile-menu-overlay">
+    <button id="menu-close" class="close-btn" aria-label="Cerrar menú">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+    <nav class="mobile-nav">
+      <ul>
+        <li><a href="#hero-section" class="mobile-link">Inicio</a></li>
+        <li><a href="#undertake-section" class="mobile-link">Sobre nosotros</a></li>
+        <li><a href="#models-section" class="mobile-link">Modelos</a></li>
+        <li><a href="#benefits-section" class="mobile-link">Beneficios</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const menuToggle = document.getElementById('menu-toggle');
+  const menuClose = document.getElementById('menu-close');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileLinks = document.querySelectorAll('.mobile-link');
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  function smoothScrollTo(targetId: string) {
+    const targetElement = document.querySelector(targetId);
+    if (targetElement) {
+      const headerHeight = document.querySelector('.header')?.clientHeight || 0;
+      const targetPosition = (targetElement as HTMLElement).offsetTop - headerHeight;
+      
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth'
+      });
+    }
+  }
+
+  function toggleMenu() {
+    mobileMenu?.classList.toggle('active');
+    // Prevent body scroll when menu is open
+    if (mobileMenu?.classList.contains('active')) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  }
+
+  menuToggle?.addEventListener('click', toggleMenu);
+  menuClose?.addEventListener('click', toggleMenu);
+
+  // Handle navigation links (desktop and mobile)
+  function handleNavClick(e: Event) {
+    e.preventDefault();
+    const link = e.currentTarget as HTMLAnchorElement;
+    const targetId = link.getAttribute('href');
+    
+    if (targetId && targetId.startsWith('#')) {
+      smoothScrollTo(targetId);
+      
+      // Close mobile menu if open
+      if (mobileMenu?.classList.contains('active')) {
+        toggleMenu();
+      }
+    }
+  }
+
+  navLinks.forEach(link => {
+    link.addEventListener('click', handleNavClick);
+  });
+
+  mobileLinks.forEach(link => {
+    link.addEventListener('click', handleNavClick);
+  });
+</script>

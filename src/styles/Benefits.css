@@ -1,0 +1,227 @@
+.benefits-section {
+  width: 100%;
+  background-color: #ffffff;
+  padding: var(--section-padding-y) var(--section-padding-x);
+}
+
+.benefits-animate {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.benefits-animate.visible {
+  opacity: 1;
+}
+
+.benefits-title-animate {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.8s ease 0.1s, transform 0.8s ease 0.1s;
+}
+
+.benefits-image-animate {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease 0.3s, transform 0.8s ease 0.3s;
+}
+
+.benefits-list-animate {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.8s ease 0.5s, transform 0.8s ease 0.5s;
+}
+
+.benefits-title-animate.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.benefits-image-animate.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.benefits-list-animate.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.benefits-container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0;
+}
+
+.benefits-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+}
+
+.benefits-title-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.benefits-title {
+  font-size: 3rem;
+  font-weight: 900;
+  color: #3590CF;
+  margin: 0;
+  writing-mode: horizontal-tb;
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 0.1em;
+}
+
+.benefits-image-wrapper {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jug-image {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  object-fit: contain;
+  border-radius: 30px 0 30px 0;
+}
+
+.benefits-list-wrapper {
+  width: 100%;
+}
+
+.benefits-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.benefit-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.benefit-number {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #3590CF;
+  font-family: 'Poppins', sans-serif;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.benefit-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.benefit-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #333333;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+.benefit-description {
+  font-size: 1rem;
+  color: #666666;
+  line-height: 1.6;
+  margin: 0;
+  font-family: 'League Spartan', sans-serif;
+  font-weight: 300;
+}
+
+@media (min-width: 768px) {
+  .benefits-content {
+    flex-direction: row;
+    align-items: stretch;
+    gap: 3rem;
+  }
+
+  .benefits-title-wrapper {
+    flex: 0 0 auto;
+    width: auto;
+    align-items: flex-start;
+    justify-content: center;
+    padding-right: 0;
+  }
+
+  .benefits-title {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    font-size: 4rem;
+    transform: rotate(180deg);
+  }
+
+  .benefits-image-wrapper {
+    flex: 1;
+    max-width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .jug-image {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    min-height: 400px;
+    object-fit: cover;
+    border-radius: 50px 0 50px 0;
+  }
+
+  .benefits-list-wrapper {
+    flex: 1;
+    max-width: 40%;
+    display: flex;
+    align-items: center;
+  }
+
+  .benefits-list {
+    width: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .benefits-section {
+    padding: var(--section-padding-y-mobile) var(--section-padding-x);
+  }
+
+  .benefits-content {
+    align-items: center;
+  }
+
+  .benefits-title-wrapper {
+    justify-content: center;
+  }
+
+  .benefits-title {
+    font-size: 2.5rem;
+    text-align: center;
+  }
+
+  .benefit-number {
+    font-size: 2rem;
+  }
+
+  .benefit-title {
+    font-size: 1.1rem;
+  }
+
+  .benefit-description {
+    font-size: 0.95rem;
+  }
+}
+

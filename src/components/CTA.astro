@@ -1,0 +1,95 @@
+---
+interface Props {
+  href?: string;
+  text: string;
+  backgroundColor?: string;
+  textColor?: string;
+  hoverBackgroundColor?: string;
+  hoverTextColor?: string;
+  hoverEffect?: 'lift' | 'scale' | 'none';
+  class?: string;
+}
+
+const {
+  href,
+  text,
+  backgroundColor = "#ffffff",
+  textColor = "#4e81d6",
+  hoverBackgroundColor,
+  hoverTextColor,
+  hoverEffect = "lift",
+  class: className = ""
+} = Astro.props;
+
+const whatsappUrl = "https://api.whatsapp.com/send/?phone=528717429367&text&type=phone_number&app_absent=0";
+const finalHref = href || whatsappUrl;
+
+const hoverBg = hoverBackgroundColor || backgroundColor;
+const hoverText = hoverTextColor || textColor;
+---
+
+<a 
+  href={finalHref} 
+  class={`cta-button cta-button--${hoverEffect} ${className}`}
+  style={`
+    --cta-bg: ${backgroundColor};
+    --cta-text: ${textColor};
+    --cta-hover-bg: ${hoverBg};
+    --cta-hover-text: ${hoverText};
+  `}
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  {text}
+</a>
+
+<style>
+  .cta-button {
+    display: inline-block;
+    background-color: var(--cta-bg);
+    color: var(--cta-text);
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    letter-spacing: 0.5px;
+    border: none;
+    cursor: pointer;
+    width: auto;
+    max-width: 100%;
+    text-align: center;
+    white-space: nowrap;
+    box-sizing: border-box;
+  }
+
+  .cta-button:hover {
+    background-color: var(--cta-hover-bg);
+    color: var(--cta-hover-text);
+  }
+
+  .cta-button--lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .cta-button--scale:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .cta-button--none:hover {
+    transform: none;
+  }
+
+  @media (max-width: 768px) {
+    .cta-button {
+      padding: 0.8rem 2rem;
+      font-size: 0.9rem;
+    }
+  }
+</style>
+

@@ -1,0 +1,241 @@
+---
+import "../styles/ModelSpecs.css";
+import { Image } from "astro:assets";
+
+interface Props {
+  title: string;
+  subtitle: string;
+  image: ImageMetadata;
+  includes: string[];
+  includesWater?: string[];
+  includesCleaning?: string[];
+  considerations: string[];
+  modelId?: string;
+}
+
+const { title, subtitle, image, includes, includesWater, includesCleaning, considerations, modelId = `model-${Math.random().toString(36).substr(2, 9)}` } = Astro.props;
+const hasTwoColumns = includesWater && includesCleaning;
+---
+
+<section class="model-specs-section">
+  <div class="model-specs-container">
+    <div class="specs-card">
+      <!-- Header: Título y Subtítulo -->
+      <div class="specs-header">
+        <h2 class="specs-title">{title}</h2>
+        <p class="specs-subtitle">{subtitle}</p>
+      </div>
+
+      <!-- Columna Izquierda: Información -->
+      <div class="specs-info">
+        <!-- Control de Pestañas (Switch) -->
+        <div class="tabs-wrapper">
+          <div class="tabs-switch" data-model-specs={modelId}>
+            <button class="tab-btn active" data-tab="includes" data-model-specs={modelId}>Lo que incluye</button>
+            <button class="tab-btn" data-tab="considerations" data-model-specs={modelId}>Consideraciones</button>
+            <div class="tab-indicator" data-model-specs={modelId}></div>
+          </div>
+        </div>
+
+        <!-- Contenido de Pestañas -->
+        <div class="tab-content active" id={`content-includes-${modelId}`} data-model-specs={modelId}>
+          {hasTwoColumns ? (
+            <div class="two-columns-includes">
+              <div class="includes-column">
+                <h3 class="includes-column-title">Dispensador de agua purificada</h3>
+                <ul class="specs-list grid-list">
+                  {includesWater.map((item) => (
+                    <li class="spec-item">
+                      <span class="check-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                      </span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div class="includes-column">
+                <h3 class="includes-column-title">Dispensador de productos de limpieza</h3>
+                <ul class="specs-list grid-list">
+                  {includesCleaning.map((item) => (
+                    <li class="spec-item">
+                      <span class="check-icon">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                      </span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ) : (
+            <ul class="specs-list grid-list">
+              {includes.map((item) => (
+                <li class="spec-item">
+                  <span class="check-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        <div class="tab-content" id={`content-considerations-${modelId}`} data-model-specs={modelId}>
+          <div class="considerations-wrapper">
+            <div class="info-banner">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+              </svg>
+              <span>Información importante para la instalación</span>
+            </div>
+            <ul class="specs-list simple-list">
+              {considerations.map((item) => (
+                <li class="spec-item consideration-item">
+                  <span class="dot-icon">•</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Columna Derecha: Imagen -->
+      <div class="specs-image-wrapper">
+        <div class="blob-background"></div>
+        <Image src={image} alt={`Dispensador ${title}`} class="specs-image" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Función para inicializar los tabs de un modelo específico
+  function initModelSpecsTabs(modelId: string) {
+    const modelSpecsContainer = document.querySelector(`[data-model-specs="${modelId}"]`)?.closest('.specs-info') || 
+                                 document.querySelector(`.model-content-item.active .specs-info`);
+    
+    if (!modelSpecsContainer) return;
+
+    const tabBtns = modelSpecsContainer.querySelectorAll(`.tab-btn[data-model-specs="${modelId}"]`);
+    const tabContents = modelSpecsContainer.querySelectorAll(`.tab-content[data-model-specs="${modelId}"]`);
+    const indicator = modelSpecsContainer.querySelector(`.tab-indicator[data-model-specs="${modelId}"]`) as HTMLElement | null;
+
+    if (!indicator || tabBtns.length === 0) return;
+
+    function updateIndicator(btn: HTMLElement) {
+      if (!indicator || !btn) return;
+      const btnRect = btn.getBoundingClientRect();
+      const parent = btn.parentElement;
+      if (!parent) return;
+      const parentRect = parent.getBoundingClientRect();
+      
+      indicator.style.width = `${btnRect.width}px`;
+      indicator.style.transform = `translateX(${btnRect.left - parentRect.left}px)`;
+    }
+
+    // Remover listeners anteriores si existen
+    tabBtns.forEach(btn => {
+      const htmlBtn = btn as HTMLElement;
+      const newBtn = htmlBtn.cloneNode(true) as HTMLElement;
+      htmlBtn.parentNode?.replaceChild(newBtn, htmlBtn);
+    });
+
+    // Agregar nuevos listeners
+    const newTabBtns = modelSpecsContainer.querySelectorAll(`.tab-btn[data-model-specs="${modelId}"]`);
+    newTabBtns.forEach(btn => {
+      const htmlBtn = btn as HTMLElement;
+      htmlBtn.addEventListener('click', () => {
+        // Remover clase active solo de los tabs de este modelo
+        newTabBtns.forEach(b => {
+          if (b.getAttribute('data-model-specs') === modelId) {
+            b.classList.remove('active');
+          }
+        });
+        tabContents.forEach(c => {
+          if (c.getAttribute('data-model-specs') === modelId) {
+            c.classList.remove('active');
+          }
+        });
+
+        // Activar el clickeado
+        htmlBtn.classList.add('active');
+        const tabId = htmlBtn.getAttribute('data-tab');
+        const content = document.getElementById(`content-${tabId}-${modelId}`);
+        if (content) content.classList.add('active');
+
+        // Mover el indicador visual
+        updateIndicator(htmlBtn);
+      });
+    });
+
+    // Inicializar indicador
+    const activeBtn = modelSpecsContainer.querySelector(`.tab-btn.active[data-model-specs="${modelId}"]`) as HTMLElement | null;
+    if (activeBtn) updateIndicator(activeBtn);
+  }
+
+  // Inicializar todos los modelos al cargar
+  window.addEventListener('load', () => {
+    document.querySelectorAll('[data-model-specs]').forEach(el => {
+      const modelId = el.getAttribute('data-model-specs');
+      if (modelId) {
+        initModelSpecsTabs(modelId);
+      }
+    });
+  });
+
+  // Observar cambios en el modelo activo
+  const observer = new MutationObserver(() => {
+    const activeModel = document.querySelector('.model-content-item.active');
+    if (activeModel) {
+      const modelSpecs = activeModel.querySelector('[data-model-specs]');
+      if (modelSpecs) {
+        const modelId = modelSpecs.getAttribute('data-model-specs');
+        if (modelId) {
+          setTimeout(() => initModelSpecsTabs(modelId), 100);
+        }
+      }
+    }
+  });
+
+  // Observar cambios en la clase 'active' de los modelos
+  document.querySelectorAll('.model-content-item').forEach(item => {
+    observer.observe(item, { attributes: true, attributeFilter: ['class', 'hidden'] });
+  });
+
+  window.addEventListener('resize', () => {
+    const activeModel = document.querySelector('.model-content-item.active');
+    if (activeModel) {
+      const modelSpecs = activeModel.querySelector('[data-model-specs]');
+      if (modelSpecs) {
+        const modelId = modelSpecs.getAttribute('data-model-specs');
+        if (modelId) {
+          const activeBtn = activeModel.querySelector(`.tab-btn.active[data-model-specs="${modelId}"]`) as HTMLElement | null;
+          if (activeBtn) {
+            const indicator = activeModel.querySelector(`.tab-indicator[data-model-specs="${modelId}"]`) as HTMLElement | null;
+            if (indicator && activeBtn) {
+              const btnRect = activeBtn.getBoundingClientRect();
+              const parent = activeBtn.parentElement;
+              if (parent) {
+                const parentRect = parent.getBoundingClientRect();
+                indicator.style.width = `${btnRect.width}px`;
+                indicator.style.transform = `translateX(${btnRect.left - parentRect.left}px)`;
+              }
+            }
+          }
+        }
+      }
+    }
+  });
+</script>
+

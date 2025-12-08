@@ -1,0 +1,51 @@
+---
+import CTA from "./CTA.astro";
+import WaterDroplet from "../assets/img/water_droplet.webp";
+import { Image } from "astro:assets";
+import "../styles/Undertake.css";
+---
+
+<section class="undertake-section" id="undertake-section">
+  <div class="undertake-container">
+    <div class="undertake-content">
+      <div class="undertake-text">
+        <h2 class="undertake-title">Emprende con Éxito</h2>
+        <h4 class="undertake-subtitle">Calidad y Eficiencia en Soluciones de Limpieza y Dispensadores de Agua</h4>
+        <p class="undertake-paragraph">
+          En KIPU, ofrecemos soluciones prácticas y accesibles para emprendedores que buscan optimizar sus negocios sin grandes inversiones. Con nuestros dispensadores de agua purificada y productos de limpieza de alta calidad, puedes ofrecer un servicio excelente, mantener tus espacios impecables y mejorar la experiencia de tus clientes, todo a precios competitivos y con la mejor eficiencia.
+        </p>
+        <CTA 
+          text="¡Contáctanos Hoy!" 
+          backgroundColor="#5483D1"
+          textColor="#ffffff"
+          hoverEffect="lift"
+        />
+      </div>
+      <div class="undertake-image-wrapper">
+        <Image src={WaterDroplet} alt="Gota de agua" class="water-droplet" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const section = document.getElementById('undertake-section');
+  
+  if (section) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.3) {
+            section.classList.add('animate');
+            observer.unobserve(section);
+          }
+        });
+      },
+      {
+        threshold: 0.3
+      }
+    );
+    
+    observer.observe(section);
+  }
+</script>

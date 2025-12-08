@@ -1,0 +1,310 @@
+---
+import { Image } from "astro:assets";
+import Dispenser1 from "../assets/img/dispenser1.jpeg";
+import Dispenser2 from "../assets/img/dispenser2.jpeg";
+import Dispenser3 from "../assets/img/dispenser3.jpeg";
+import Dispenser4 from "../assets/img/dispenser4.jpeg";
+import Dispenser5 from "../assets/img/dispenser5.jpeg";
+import Dispenser6 from "../assets/img/dispenser6.jpeg";
+import Dispenser7 from "../assets/img/dispenser7.jpeg";
+import Building from "../assets/img/building.jpg";
+import ImageViewer from "./ImageViewer.astro";
+import "../styles/Gallery.css";
+
+const galleryImages = [
+  { src: Dispenser1, alt: "Dispensador KIPU instalado" },
+  { src: Dispenser2, alt: "Dispensador KIPU" },
+  { src: Dispenser3, alt: "Dispensador KIPU" },
+  { src: Dispenser4, alt: "Dispensador KIPU" },
+  { src: Dispenser5, alt: "Dispensador KIPU" },
+  { src: Dispenser6, alt: "Dispensador KIPU" },
+  { src: Dispenser7, alt: "Dispensador KIPU" },
+  { src: Building, alt: "Instalación KIPU" },
+];
+---
+
+<section class="gallery-section gallery-animate">
+  <div class="gallery-container">
+    <h2 class="gallery-title gallery-title-animate">GALERÍA DE NUESTRO TRABAJO</h2>
+    <div class="gallery-wrapper gallery-wrapper-animate">
+      <button class="slider-btn slider-prev" aria-label="Imagen anterior">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </button>
+      <div class="gallery-grid" id="gallery-slider">
+        {galleryImages.map((image, index) => (
+          <div class="gallery-item gallery-item-animate" data-index={index} data-animate-delay={index * 0.1}>
+            <Image src={image.src} alt={image.alt} class="gallery-img" />
+          </div>
+        ))}
+      </div>
+      <button class="slider-btn slider-next" aria-label="Imagen siguiente">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+    </div>
+    <div class="slider-dots" id="slider-dots"></div>
+  </div>
+  <ImageViewer />
+</section>
+
+<script>
+  const galleryItems = document.querySelectorAll('.gallery-item');
+  const imageSources: string[] = [];
+  const viewer = document.getElementById('image-viewer');
+  const viewerImage = document.getElementById('viewer-image') as HTMLImageElement | null;
+  const closeBtn = viewer?.querySelector('.viewer-close');
+  const nextBtn = viewer?.querySelector('.viewer-next');
+  const prevBtn = viewer?.querySelector('.viewer-prev');
+
+  let currentImageIndex = 0;
+  let currentSlideIndex = 0;
+  const gallerySlider = document.getElementById('gallery-slider');
+  const sliderDots = document.getElementById('slider-dots');
+  const prevSliderBtn = document.querySelector('.slider-prev');
+  const nextSliderBtn = document.querySelector('.slider-next');
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  galleryItems.forEach((item, index) => {
+    const img = item.querySelector('img');
+    if (img && img instanceof HTMLImageElement) {
+      imageSources.push(img.src);
+      item.addEventListener('click', () => {
+        if (viewer && viewerImage) {
+          currentImageIndex = index;
+          openViewer();
+        }
+      });
+    }
+  });
+
+  function openViewer() {
+    if (!viewer || !viewerImage) return;
+    viewerImage.src = imageSources[currentImageIndex];
+    viewer.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    updateNavButtons();
+  }
+
+  function closeViewer() {
+    if (!viewer) return;
+    viewer.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function showNext() {
+    if (imageSources.length === 0) return;
+    currentImageIndex = (currentImageIndex + 1) % imageSources.length;
+    if (viewerImage) {
+      viewerImage.src = imageSources[currentImageIndex];
+    }
+    updateNavButtons();
+  }
+
+  function showPrev() {
+    if (imageSources.length === 0) return;
+    currentImageIndex = (currentImageIndex - 1 + imageSources.length) % imageSources.length;
+    if (viewerImage) {
+      viewerImage.src = imageSources[currentImageIndex];
+    }
+    updateNavButtons();
+  }
+
+  function updateNavButtons() {
+    if (imageSources.length <= 1) {
+      prevBtn?.setAttribute('style', 'display: none');
+      nextBtn?.setAttribute('style', 'display: none');
+    } else {
+      prevBtn?.setAttribute('style', 'display: flex');
+      nextBtn?.setAttribute('style', 'display: flex');
+    }
+  }
+
+  closeBtn?.addEventListener('click', closeViewer);
+  nextBtn?.addEventListener('click', showNext);
+  prevBtn?.addEventListener('click', showPrev);
+
+  viewer?.addEventListener('click', (e) => {
+    if (e.target === viewer) {
+      closeViewer();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (!viewer?.classList.contains('active')) return;
+    
+    if (e.key === 'Escape') {
+      closeViewer();
+    } else if (e.key === 'ArrowRight') {
+      showNext();
+    } else if (e.key === 'ArrowLeft') {
+      showPrev();
+    }
+  });
+
+  function initSlider() {
+    if (window.innerWidth > 767) {
+      if (sliderDots) {
+        sliderDots.innerHTML = '';
+      }
+      return;
+    }
+    
+    if (gallerySlider && sliderDots) {
+      sliderDots.innerHTML = '';
+      const items = gallerySlider.querySelectorAll('.gallery-item');
+      items.forEach((_, index) => {
+        const dot = document.createElement('button');
+        dot.className = 'slider-dot';
+        if (index === 0) dot.classList.add('active');
+        dot.setAttribute('aria-label', `Ir a imagen ${index + 1}`);
+        dot.addEventListener('click', () => goToSlide(index));
+        sliderDots.appendChild(dot);
+      });
+
+      updateSlider();
+    }
+  }
+
+  function goToSlide(index: number) {
+    if (!gallerySlider) return;
+    const items = gallerySlider.querySelectorAll('.gallery-item');
+    if (index < 0 || index >= items.length) return;
+    
+    currentSlideIndex = index;
+    const item = items[index] as HTMLElement;
+    const container = gallerySlider.parentElement;
+    if (item && container) {
+      const scrollLeft = item.offsetLeft - container.offsetWidth / 2 + item.offsetWidth / 2;
+      gallerySlider.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+    }
+    updateSlider();
+  }
+
+  function nextSlide() {
+    if (!gallerySlider) return;
+    const items = gallerySlider.querySelectorAll('.gallery-item');
+    if (currentSlideIndex < items.length - 1) {
+      goToSlide(currentSlideIndex + 1);
+    }
+  }
+
+  function prevSlide() {
+    if (currentSlideIndex > 0) {
+      goToSlide(currentSlideIndex - 1);
+    }
+  }
+
+  function updateSlider() {
+    if (!gallerySlider || !sliderDots) return;
+    const dots = sliderDots.querySelectorAll('.slider-dot');
+    dots.forEach((dot, index) => {
+      if (index === currentSlideIndex) {
+        dot.classList.add('active');
+      } else {
+        dot.classList.remove('active');
+      }
+    });
+  }
+
+  function handleSwipe() {
+    const swipeDistance = touchStartX - touchEndX;
+    const minSwipeDistance = 50;
+
+    if (Math.abs(swipeDistance) > minSwipeDistance) {
+      if (swipeDistance > 0) {
+        nextSlide();
+      } else {
+        prevSlide();
+      }
+    }
+  }
+
+  if (gallerySlider) {
+    gallerySlider.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+
+    gallerySlider.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    });
+
+    gallerySlider.addEventListener('scroll', () => {
+      if (!gallerySlider) return;
+      const items = gallerySlider.querySelectorAll('.gallery-item');
+      const scrollLeft = gallerySlider.scrollLeft;
+      const containerWidth = gallerySlider.offsetWidth;
+      
+      items.forEach((item, index) => {
+        const itemLeft = (item as HTMLElement).offsetLeft;
+        const itemWidth = (item as HTMLElement).offsetWidth;
+        const itemCenter = itemLeft + itemWidth / 2;
+        const containerCenter = scrollLeft + containerWidth / 2;
+        
+        if (Math.abs(itemCenter - containerCenter) < itemWidth / 2) {
+          currentSlideIndex = index;
+          updateSlider();
+        }
+      });
+    });
+  }
+
+  prevSliderBtn?.addEventListener('click', prevSlide);
+  nextSliderBtn?.addEventListener('click', nextSlide);
+
+  let resizeTimeout: ReturnType<typeof setTimeout>;
+  let isInitialized = false;
+
+  function handleResize() {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      initSlider();
+    }, 150);
+  }
+
+  initSlider();
+  isInitialized = true;
+  
+  window.addEventListener('resize', handleResize);
+
+  // Animaciones de entrada
+  const gallerySection = document.querySelector('.gallery-animate');
+  
+  if (gallerySection) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.15) {
+            entry.target.classList.add('visible');
+            const titleEl = entry.target.querySelector('.gallery-title-animate');
+            const wrapperEl = entry.target.querySelector('.gallery-wrapper-animate');
+            const items = entry.target.querySelectorAll('.gallery-item-animate');
+            
+            if (titleEl) titleEl.classList.add('visible');
+            if (wrapperEl) wrapperEl.classList.add('visible');
+            
+            items.forEach((item) => {
+              const delay = parseFloat(item.getAttribute('data-animate-delay') || '0');
+              setTimeout(() => {
+                item.classList.add('visible');
+              }, delay * 1000);
+            });
+            
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.15,
+        rootMargin: '0px 0px -50px 0px'
+      }
+    );
+    
+    observer.observe(gallerySection);
+  }
+</script>
+

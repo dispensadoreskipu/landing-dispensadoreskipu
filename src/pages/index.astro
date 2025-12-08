@@ -1,0 +1,114 @@
+---
+import Navbar from "../components/Navbar.astro";
+import Hero from "../components/Hero.astro";
+import Undertake from "../components/Undertake.astro";
+import Separator from "../components/Separator.astro";
+import Invest from "../components/Invest.astro";
+import Benefits from "../components/Benefits.astro";
+import Models from "../components/Models.astro";
+import Gallery from "../components/Gallery.astro";
+import Map from "../components/Map.astro";
+import Footer from "../components/Footer.astro";
+import CTA from "../components/CTA.astro";
+import SimpleSeparator from "../components/SimpleSeparator.astro";
+---
+
+<html lang="es">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>KIPU - Dispensadores de agua purificada</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@900&family=League+Spartan:wght@300&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="/styles/global.css">
+    <style is:global>
+      html, body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+        width: 100%;
+        max-width: 100%;
+      }
+      body {
+        padding-top: 80px;
+      }
+      @media (max-width: 767px) {
+        body {
+          padding-top: 80px;
+        }
+      }
+    </style>
+	</head>
+	<body>
+		<Navbar />
+		<Hero />
+		<Undertake />
+		<Separator>
+			<h2 class="solutions-title">¡Soluciones a tu alcance!</h2>
+			<p class="solutions-description">
+				Adquiere equipos de dispensadores de agua purificada y productos de limpieza que combinan calidad, funcionalidad y accesibilidad.
+			</p>
+		</Separator>
+		<Invest />
+		<SimpleSeparator />
+		<Models />
+		<Separator>
+			<h2 class="solutions-title">¡LLÉVATE DE REGALO!</h2>
+			<p class="solutions-description">
+				En la compra de cualquiera de nuestros equipos te regalamos nuestro increíble paquete plus el cual te incluye:
+			</p>
+			<ul class="gift-list">
+				<li class="gift-item">Instalación</li>
+				<li class="gift-item">Fachada de vitropiso de 2x2 metros</li>
+				<li class="gift-item">Toldo a la medida</li>
+				<li class="gift-item">Publicidad de arranque digital</li>
+				<li class="gift-item">Asistencia técnica</li>
+			</ul>
+		</Separator>
+		<Benefits />
+		<Gallery />
+		<Map />
+		<Separator>
+			<div class="solutions-text-wrapper">
+				<div class="solutions-text-content">
+					<h2 class="solutions-title">¿Qué esperas para empezar tu negocio?</h2>
+					<p class="solutions-description">
+						Queremos ayudarte a dar el primer paso hacia tu independencia financiera. Con KIPU, iniciar tu negocio es más fácil que nunca.
+						Descubre nuestras opciones de financiamiento y aprovecha los descuentos exclusivos de este mes para comenzar tu camino al éxito.
+					</p>
+					<div class="cta-wrapper">
+						<CTA 
+							text="Contáctanos" 
+							backgroundColor="#ffffff"
+							textColor="#5483d1"
+							hoverEffect="lift"
+						/>
+					</div>
+				</div>
+				<div class="social-icons">
+				<a href="https://www.instagram.com/dispensadorkipu/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="social-icon social-instagram">
+					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+						<path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+						<line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+					</svg>
+				</a>
+				<a href="https://www.facebook.com/dispensadorkipu/?locale=es_LA" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="social-icon social-facebook">
+					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+					</svg>
+				</a>
+				<a href="https://api.whatsapp.com/send/?phone=528717429367&text&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="social-icon social-whatsapp">
+					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+					</svg>
+				</a>
+				</div>
+			</div>
+		</Separator>
+		<Footer />
+	</body>
+</html>

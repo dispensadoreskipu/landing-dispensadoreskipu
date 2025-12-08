@@ -1,0 +1,31 @@
+.footer {
+  width: 100%;
+  background-color: #3568CF;
+  padding: 2rem var(--section-padding-x);
+}
+
+.footer-container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0;
+}
+
+.footer-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-copyright {
+  text-align: center;
+}
+
+.footer-copyright p {
+  margin: 0;
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-family: var(--font-paragraph);
+  font-weight: 300;
+}
+
+

@@ -1,0 +1,51 @@
+---
+import KipuGuy from "../assets/img/kipu_guy.webp";
+import { Image } from "astro:assets";
+import "../styles/Separator.css";
+---
+
+<section class="solutions-banner separator-animate">
+  <div class="geometric-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+    <div class="shape shape-4"></div>
+    <div class="shape shape-5"></div>
+    <div class="shape shape-6"></div>
+  </div>
+  <div class="solutions-container">
+    <div class="solutions-content">
+      <div class="solutions-character">
+        <Image src={KipuGuy} alt="KIPU Personaje" class="kipu-guy" />
+      </div>
+      <div class="solutions-text">
+        <slot />
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const separators = document.querySelectorAll('.separator-animate');
+  
+  if (separators.length > 0) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.15) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.15,
+        rootMargin: '0px 0px -50px 0px'
+      }
+    );
+    
+    separators.forEach(separator => {
+      observer.observe(separator);
+    });
+  }
+</script>

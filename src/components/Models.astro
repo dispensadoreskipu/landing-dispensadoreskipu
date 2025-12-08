@@ -1,0 +1,306 @@
+---
+import "../styles/Models.css";
+import ModelSpecs from "./ModelSpecs.astro";
+import ModeloI from "../assets/img/modelo_1.webp";
+import ModeloII from "../assets/img/modelo_2.webp";
+import ModeloIII from "../assets/img/modelo_3.webp";
+
+interface Model {
+  id: string;
+  title: string;
+  subtitle: string;
+  image: ImageMetadata;
+  includes: string[];
+  includesWater?: string[];
+  includesCleaning?: string[];
+  considerations: string[];
+}
+
+const models: Model[] = [
+  {
+    id: "modelo-i",
+    title: "MODELO I",
+    subtitle: "Dispensador de agua purificada",
+    image: ModeloI,
+    includes: [
+      "Lámpara de luz ultra violeta",
+      "Ósmosis inversa",
+      "Manómetro",
+      "Tanque de fibra de vidrio 1 pie cúbico",
+      "Rotámetro D. cuadrado 1-5 GPM",
+      "Bulto de resina catiónica",
+      "(2) Filtros cartuchos grandes carbón y sedimentos",
+      "Tanque de salmuera 100LT",
+      "Bomba multietapa horizontal 3/4 HP",
+      "Medidor de sólidos",
+      "(2) Portafiltros",
+      "(2) Filtro de carbón activado",
+      "Válvula para suavizador",
+      "(2) Bomba de 1/2 HP",
+      "Válvulas solenoides",
+      "Monedero multimonedas",
+      "(2) Tinacos verticales de 1000LTS o afín uno para agua cruda y otro para agua purificada",
+      "Vending de acero inoxidable con puerta de acrílico y vinil rotulado",
+      "Fachada de vitropiso de 2x2 metros",
+      "Toldo a la medida",
+      "Publicidad de arranque digital",
+      "Asistencia técnica",
+      "Tienda de insumos"
+    ],
+    considerations: [
+      "El tiempo de instalación puede variar entre 1 y 30 días hábiles, dependiendo de la disponibilidad en nuestro calendario de trabajo",
+      "Área mínima de 2x2 metros cuadrados",
+      "Material resistente y cerrado, con ventilación para evitar humedad",
+      "Conexión a la red de agua y drenaje",
+      "Al menos 3 enchufes de 110V",
+      "Puerta de acceso de tamaño estándar",
+      "Un espacio en la fachada para instalar el dispensador de acero inoxidable",
+      "El espacio debe estar listo para la instalación (no realizamos trabajos de construcción ni ajustes). El acabado de la fachada debe estar en condiciones adecuadas (no en obra negra) para asegurar un montaje correcto"
+    ]
+  },
+  {
+    id: "modelo-ii",
+    title: "MODELO II",
+    subtitle: "Dispensador de agua purificada",
+    image: ModeloII,
+    includes: [
+      "Lámpara de luz ultra violeta",
+      "Ósmosis inversa",
+      "Manómetros",
+      "Tanque carbón activado 1FT3",
+      "Tanque de lecho profundo 1FT3",
+      "Tanque suavizador 1FT3",
+      "Tanque salmuera",
+      "Bombas horizontales",
+      "Medidor de sólidos",
+      "Rotámetros",
+      "Válvulas para tanques",
+      "Válvulas solenoides",
+      "Monedero multimonedas",
+      "Tinaco 1000 litros o afín para almacenamiento agua cruda",
+      "Tinaco 1000 litros o afín para almacenamiento agua purificada",
+      "Vending de acero inoxidable con puerta de acrílico y vinil rotulado",
+      "Fachada de vitropiso",
+      "Toldo rotulado a medida",
+      "Publicidad digital al arranque",
+      "Asistencia técnica",
+      "Tienda de insumos"
+    ],
+    considerations: [
+      "El tiempo de instalación puede variar entre 1 y 30 días hábiles, dependiendo de la disponibilidad en nuestro calendario de trabajo",
+      "Área mínima de 2x2 metros cuadrados",
+      "Material resistente y cerrado, con ventilación adecuada para evitar acumulación de humedad",
+      "Conexión a la red pública de agua y tubería de drenaje",
+      "Al menos 3 enchufes de 110V",
+      "Puerta de acceso con medidas estándar",
+      "Un espacio en la fachada para instalar el dispensador de acero inoxidable",
+      "El espacio debe estar listo para la instalación (no realizamos trabajos de construcción ni ajustes). El acabado de la fachada debe estar en condiciones adecuadas (no en obra negra) para asegurar un montaje correcto"
+    ]
+  },
+  {
+    id: "modelo-iii",
+    title: "MODELO III",
+    subtitle: "Dispensador de agua purificada + Productos de limpieza",
+    image: ModeloIII,
+    includes: [
+      "Lámpara luz ultra violeta",
+      "Ósmosis inversa",
+      "Manómetro 0-100 PSI",
+      "Tanque de fibra de vidrio 1 pie cúbico",
+      "Rotámetro D. cuadrado 1-5 GPM",
+      "Bulto de resina catiónica",
+      "(2) Filtros cartuchos grandes carbón y sedimentos",
+      "Tanque salmuera 100 LT.",
+      "Bomba multietapa horiz 3/4 HP",
+      "Medidor D/Sólidos",
+      "(2) Portafolios",
+      "(2) Filtro cartucho carbón activado",
+      "Válvula para suavizador",
+      "Bomba de acero inox de ½ HP",
+      "Válvulas solenoides",
+      "(2) Tinacos 1000 litros o afín (uno para agua puro y otro para agua purificada)",
+      "Vending de acero inoxidable",
+      "Multimonedas"
+    ],
+    includesWater: [
+      "Lámpara luz ultra violeta",
+      "Ósmosis inversa",
+      "Manómetro 0-100 PSI",
+      "Tanque de fibra de vidrio 1 pie cúbico",
+      "Rotámetro D. cuadrado 1-5 GPM",
+      "Bulto de resina catiónica",
+      "(2) Filtros cartuchos grandes carbón y sedimentos",
+      "Tanque salmuera 100 LT.",
+      "Bomba multietapa horiz 3/4 HP",
+      "Medidor D/Sólidos",
+      "(2) Portafolios",
+      "(2) Filtro cartucho carbón activado",
+      "Válvula para suavizador",
+      "Bomba de acero inox de ½ HP",
+      "Válvulas solenoides",
+      "(2) Tinacos 1000 litros o afín (uno para agua puro y otro para agua purificada)",
+      "Vending de acero inoxidable",
+      "Multimonedas"
+    ],
+    includesCleaning: [
+      "(7) Bombas de diafragma para uso agrícola",
+      "Tarjeta de programación para 7 productos de limpieza con 1 licencia para control automático desde app",
+      "Botonera de 7 botones",
+      "Display",
+      "Monedero multimonedas programado",
+      "Gabinet para resguardo de tarjeta de programación",
+      "Vending de acero inoxidable",
+      "Conexiones hidráulicas para el correcto funcionamiento",
+      "Conexiones eléctricas para el correcto funcionamiento",
+      "(7) Contenedores de 50 litros"
+    ],
+    considerations: [
+      "El tiempo de instalación puede variar entre 1 y 30 días hábiles, dependiendo de la disponibilidad en nuestro calendario de trabajo",
+      "Área mínima de 3x3 metros cuadrados",
+      "Material resistente y cerrado, con ventilación adecuada para evitar acumulación de humedad",
+      "Conexión a la red pública de agua y tubería de drenaje",
+      "Al menos 4 enchufes de 110V",
+      "Puerta de acceso con medidas estándar",
+      "Dos huecos en la fachada para empotrar los dispensadores de acero inoxidable",
+      "No realizamos trabajos de ajustes o construcción. Estos deberán ser gestionados por tu cuenta, incluyendo la preparación del espacio donde se colocarán los despachadores. El acabado de la fachada debe estar firme, sin obra negra, para garantizar una instalación correcta del vitropiso y un ajuste óptimo de los dispensadores"
+    ]
+  }
+];
+---
+
+<section class="models-section models-animate" id="models-section">
+  <div class="models-container">
+    <div class="models-header models-header-animate">
+      <h2 class="models-title">Modelos</h2>
+      <h4 class="models-subtitle">Conoce nuestros increíbles Dispensadores que tenemos para ti</h4>
+    </div>
+
+    <div class="models-selector-wrapper models-selector-animate">
+      <div class="models-selector" role="tablist" aria-label="Seleccionar modelo">
+        {models.map((model, index) => (
+          <button
+            class={`model-tab ${index === 0 ? 'active' : ''}`}
+            data-model-id={model.id}
+            role="tab"
+            aria-selected={index === 0}
+            aria-controls={`model-content-${model.id}`}
+            id={`model-tab-${model.id}`}
+          >
+            <span class="model-tab-title">{model.title}</span>
+          </button>
+        ))}
+        <div class="model-tab-indicator"></div>
+      </div>
+    </div>
+
+    <div class="models-content models-content-animate">
+      {models.map((model, index) => (
+        <div
+          class={`model-content-item ${index === 0 ? 'active' : ''}`}
+          id={`model-content-${model.id}`}
+          role="tabpanel"
+          aria-labelledby={`model-tab-${model.id}`}
+          hidden={index !== 0}
+        >
+          <ModelSpecs
+            title={model.title}
+            subtitle={model.subtitle}
+            image={model.image}
+            includes={model.includes}
+            includesWater={model.includesWater}
+            includesCleaning={model.includesCleaning}
+            considerations={model.considerations}
+            modelId={model.id}
+          />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  const modelTabs = document.querySelectorAll('.model-tab');
+  const modelContents = document.querySelectorAll('.model-content-item');
+  const indicator = document.querySelector('.model-tab-indicator') as HTMLElement | null;
+
+  function updateIndicator(btn: HTMLElement) {
+    if (!indicator || !btn) return;
+    const btnRect = btn.getBoundingClientRect();
+    const parent = btn.parentElement;
+    if (!parent) return;
+    const parentRect = parent.getBoundingClientRect();
+    
+    indicator.style.width = `${btnRect.width}px`;
+    indicator.style.transform = `translateX(${btnRect.left - parentRect.left}px)`;
+  }
+
+  function switchModel(modelId: string) {
+    modelTabs.forEach((tab, index) => {
+      const htmlTab = tab as HTMLElement;
+      const isActive = htmlTab.getAttribute('data-model-id') === modelId;
+      
+      htmlTab.classList.toggle('active', isActive);
+      htmlTab.setAttribute('aria-selected', String(isActive));
+      
+      const contentId = htmlTab.getAttribute('data-model-id');
+      const content = document.getElementById(`model-content-${contentId}`);
+      if (content) {
+        content.classList.toggle('active', isActive);
+        content.hidden = !isActive;
+      }
+    });
+
+    const activeTab = document.querySelector(`.model-tab[data-model-id="${modelId}"]`) as HTMLElement | null;
+    if (activeTab) {
+      updateIndicator(activeTab);
+    }
+  }
+
+  modelTabs.forEach(tab => {
+    const htmlTab = tab as HTMLElement;
+    htmlTab.addEventListener('click', () => {
+      const modelId = htmlTab.getAttribute('data-model-id');
+      if (modelId) {
+        switchModel(modelId);
+      }
+    });
+  });
+
+  window.addEventListener('load', () => {
+    const activeTab = document.querySelector('.model-tab.active') as HTMLElement | null;
+    if (activeTab) updateIndicator(activeTab);
+  });
+  
+  window.addEventListener('resize', () => {
+    const activeTab = document.querySelector('.model-tab.active') as HTMLElement | null;
+    if (activeTab) updateIndicator(activeTab);
+  });
+
+  // Animaciones de entrada
+  const modelsSection = document.querySelector('.models-animate');
+  
+  if (modelsSection) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.15) {
+            entry.target.classList.add('visible');
+            const headerEl = entry.target.querySelector('.models-header-animate');
+            const selectorEl = entry.target.querySelector('.models-selector-animate');
+            const contentEl = entry.target.querySelector('.models-content-animate');
+            if (headerEl) headerEl.classList.add('visible');
+            if (selectorEl) selectorEl.classList.add('visible');
+            if (contentEl) contentEl.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.15,
+        rootMargin: '0px 0px -50px 0px'
+      }
+    );
+    
+    observer.observe(modelsSection);
+  }
+</script>
